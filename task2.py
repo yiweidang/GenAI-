@@ -1,14 +1,16 @@
 import pandas as pd
 
 # Load the CSV file into a DataFrame
-df = pd.read_csv('your_file.csv')
+df = pd.read_csv('Construction_Data_PM_Tasks_All_Projects.csv')
 
-# Filter for tasks with Status 'Open' or 'Closed'
-filtered_df = df[df['Status'].isin(['Open', 'Closed'])]
+# Function to group tasks by task group and count status
+def count_open_and_closed_tasks():
+    # Filter the DataFrame for Open and Closed statuses
+    filtered_df = df[df['Status'].isin(['Open', 'Closed'])]
+    
+    grouped_data = filtered_df.groupby(['Task Group', 'Status']).size().unstack().fillna(0)
+    print("\nTask Count by Task Group and Status:")
+    print(grouped_data)
 
-# Group tasks by Task Group and Status, and count the number of tasks
-task_counts = filtered_df.groupby(['Task Group', 'Status']).size().unstack(fill_value=0)
-
-# Print the result
-print("Total Number of Open and Closed Tasks by Task Group:")
-print(task_counts)
+# Call the function to perform the counts
+count_open_and_closed_tasks()
