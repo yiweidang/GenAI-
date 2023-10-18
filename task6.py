@@ -7,7 +7,7 @@ df = pd.read_csv('Construction_Data_PM_Forms_All_Projects.csv')
 # Function to calculate average days from creation to present
 def calculate_average_days():
     # Convert 'Created' column to datetime format
-    df['Created'] = pd.to_datetime(df['Created'])
+    df['Created'] = pd.to_datetime(df['Created'], format='%d/%m/%Y')
     
     # Calculate the difference between today and the 'Created' date
     df['Days_Ago'] = (datetime.now() - df['Created']).dt.days
